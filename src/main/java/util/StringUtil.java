@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public final class StringUtil {
+	
 	private StringUtil() {
 		throw new AssertionError("utility classes should not be instantiated");
 	}

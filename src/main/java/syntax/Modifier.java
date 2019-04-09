@@ -3,6 +3,7 @@ package syntax;
 import java.util.Objects;
 
 public enum Modifier {
+	
 	PUBLIC("public"), PRIVATE("private"), PACKAGE("package"), PROTECTED("protected"), ABSTRACT("abstract"),
 	FINAL("final"), STATIC("static");
 

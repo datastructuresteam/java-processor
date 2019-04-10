@@ -13,20 +13,21 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import formatter.JavaFormatter;
+import parser.JavaParser;
 
 public class JavaProcessor {
 
 	public static void main(String[] args) throws IOException {
 
-		List<String> fileContent = Files.readAllLines(Paths.get("parse.txt"));
-
-		JavaParser parser = new JavaParser(fileContent);
-
-		List<String> formattedContent = parser.getFormattedContent();
+		List<String> fileContent = Files.readAllLines(Paths.get("syntax-test.txt"));
 
 		JavaFormatter formatter = new JavaFormatter(fileContent);
 
-		formattedContent = formatter.getFormattedContent();
+		List<String> formattedContent = formatter.getFormattedContent();
+
+		JavaParser parser = new JavaParser(formattedContent);
+
+		formattedContent = parser.getFormattedContent();
 
 		formattedContent.stream().forEach(System.out::println);
 

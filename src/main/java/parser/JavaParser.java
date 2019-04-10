@@ -1,5 +1,7 @@
 package parser;
 
+import java.util.*;
+
 public class JavaParser {
 
   private List<String> _formattedContent = new LinkedList<>();
@@ -21,7 +23,7 @@ public class JavaParser {
 	}
 
   // Method to fix comments(returns ArrayList)
-	public static List<String> fixComment(List<String> list) {
+	public static List<String> fixComments(List<String> list) {
 
 		ListIterator<String> itr = list.listIterator();
 		int count = 0;
@@ -159,10 +161,17 @@ public class JavaParser {
             for(int i=0; itr.hasNext(); i++){
               str = list.get(i);
 
-              if(str.contains("{"))
-                  leftCount++;
-              if(str.contains("}"))
-                  rightCount++;
+                for(char l : str.toCharArray()) {
+                    if (l == '{') {
+                        leftCount++;
+                    }
+                }
+
+                for(char r : str.toCharArray()) {
+                    if (r == '}') {
+                        rightCount++;
+                    }
+                }
 
               if(i+1 == list.size())
                   break;

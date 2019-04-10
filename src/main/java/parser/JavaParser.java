@@ -224,10 +224,12 @@ public class JavaParser {
           while(itr.hasNext()){
               str = list.get(count);
 
-              //Make sure it is a statement and not a class, method, or loop declaration
-              if(!str.contains("//") && !str.contains("public") && !str.contains("{") && !str.contains("}") && !str.contains(")"))
-                if(!str.isBlank() && !str.contains(";"))
-                  str = str + ";";
+              //Make sure it is a statement and not a class, method, loop, comment, etc
+              if(!str.contains("//") && !str.contains("."))
+                if(!str.contains("class") && !str.contains("void"))
+                    if(!(str.length() <= 2))
+                        if(!str.isBlank() && !str.endsWith(";"))
+                        str = str + ";";
 
               list.set(count, str);
               count++;

@@ -1,54 +1,41 @@
 package main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
-import javax.swing.JOptionPane;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import formatter.JavaFormatter;
-import parser.JavaParser;
+public class JavaProcessor extends Application {
 
-public class JavaProcessor {
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+
+		Scene scene = new Scene(root);
+
+		primaryStage.setTitle("JavaFX and Maven");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 
 	public static void main(String[] args) throws IOException {
+		launch(args);
 
-		List<String> fileContent = Files.readAllLines(Paths.get("syntax-test.txt"));
-
-		JavaParser parser = new JavaParser(fileContent);
-
-		List<String> formattedContent = parser.getFormattedContent();
-
-		JavaFormatter formatter = new JavaFormatter(formattedContent);
-
-		formattedContent = formatter.getFormattedContent();
-
-
-
-		formattedContent.stream().forEach(System.out::println);
+//		List<String> fileContent = Files.readAllLines(Paths.get("syntax-test.txt"));
+//
+//		JavaParser parser = new JavaParser(fileContent);
+//
+//		List<String> formattedContent = parser.getFormattedContent();
+//
+//		JavaFormatter formatter = new JavaFormatter(formattedContent);
+//
+//		formattedContent = formatter.getFormattedContent();
+//
+//		formattedContent.stream().forEach(System.out::println);
 
 	}
 
-
-	public void testCommentChecker() {
-		try (Scanner scan = new Scanner(System.in)) {
-			List<String> list = new ArrayList<>();
-
-			System.out.println("Please enter the file name: ");
-			String filename = scan.next();
-
-			try (Scanner fileScanner = new Scanner(new File(filename))) {
-				while (fileScanner.hasNextLine()) {
-					list.add(fileScanner.nextLine());
-				}
-			} catch (FileNotFoundException ex) {
-				JOptionPane.showMessageDialog(null, "File not found");
-			}
-		}
-	}
 }

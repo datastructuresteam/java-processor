@@ -1,5 +1,11 @@
 package parser;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Objects;
+
 public class JavaParser {
 
   private List<String> _formattedContent = new LinkedList<>();
@@ -21,7 +27,7 @@ public class JavaParser {
 	}
 
   // Method to fix comments(returns ArrayList)
-	public static List<String> fixComment(List<String> list) {
+	public static List<String> fixComments(List<String> list) {
 
 		ListIterator<String> itr = list.listIterator();
 		int count = 0;

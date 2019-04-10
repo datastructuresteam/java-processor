@@ -20,47 +20,18 @@ public class JavaProcessor {
 
 		List<String> fileContent = Files.readAllLines(Paths.get("parse.txt"));
 
+		JavaParser parser = new JavaParser(fileContent);
+
+		List<String> formattedContent = parser.getFormattedContent();
+
 		JavaFormatter formatter = new JavaFormatter(fileContent);
 
-		List<String> formattedContent = formatter.getFormattedContent();
+		formattedContent = formatter.getFormattedContent();
 
 		formattedContent.stream().forEach(System.out::println);
 
 	}
 
-	// Method to fix comments(returns ArrayList)
-	public static List<String> fixComment(List<String> list) {
-
-		ListIterator<String> itr = list.listIterator();
-		int count = 0;
-		String str;
-
-		// Loop thru ArrayList elements
-		while (itr.hasNext()) {
-			str = list.get(count);
-
-			// Make sure the element is not empty...otherwise do not execute this block
-			if (!str.isEmpty()) {
-				if (str.charAt(0) == '/' && str.charAt(1) != '/') {
-					str = "/" + str;
-				}
-
-				if (str.startsWith("//") && !str.endsWith(".")) {
-					str = str + ".";
-				}
-
-				list.set(count, str);
-			}
-			count++;
-
-			// Break out once the size of the ArrayList has been reached to avoid
-			// IndexOutOfBounds Exception
-			if (count == list.size()) {
-				break;
-			}
-		}
-		return list;
-	}
 
 	public void testCommentChecker() {
 		try (Scanner scan = new Scanner(System.in)) {

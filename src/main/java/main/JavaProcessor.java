@@ -20,13 +20,15 @@ public class JavaProcessor {
 
 		List<String> fileContent = Files.readAllLines(Paths.get("syntax-test.txt"));
 
-		JavaFormatter formatter = new JavaFormatter(fileContent);
+		JavaParser parser = new JavaParser(fileContent);
 
-		List<String> formattedContent = formatter.getFormattedContent();
+		List<String> formattedContent = parser.getFormattedContent();
 
-		JavaParser parser = new JavaParser(formattedContent);
+		JavaFormatter formatter = new JavaFormatter(formattedContent);
 
-		formattedContent = parser.getFormattedContent();
+		formattedContent = formatter.getFormattedContent();
+
+
 
 		formattedContent.stream().forEach(System.out::println);
 

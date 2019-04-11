@@ -1,27 +1,106 @@
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
+import java.util.List;
 
+import formatter.JavaFormatter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import parser.JavaParser;
 
-public class MainController implements Initializable {
+public class MainController {
+
+	private List<String> _inFileContent;
+
+	private JavaParser _parser;
+
+	private JavaFormatter _formatter;
 
 	@FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-    	// TODO: handle file procedure
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-} 
+	private TextArea _inputTextArea;
+
+	@FXML
+	private TextArea _outputTextArea;
+
+	@FXML
+	private TextField _inFileTxtField;
+
+	@FXML
+	private TextField _outFileTxtField;
+
+	@FXML
+	private Label _errorLabel;
+
+	@FXML
+	void handleOnSubmit(ActionEvent event) {
+		String outFileName = _outFileTxtField.getText().strip();
+
+		if (outFileName.isBlank()) {
+			return;
+		}
+		
+		if (!_inputTextArea.getText().isBlank()) {
+			final String input = _inputTextArea.getText().strip();
+			final String[] tokens = input.split("\n");
+			_inFileContent = Arrays.asList(tokens);
+		}
+
+		_parser = new JavaParser(_inFileContent);
+
+		List<String> formattedContent = _parser.getFormattedContent();
+
+		_formatter = new JavaFormatter(formattedContent);
+
+		formattedContent = _formatter.getFormattedContent();
+
+		final String output = String.join("\n", formattedContent);
+
+		_outputTextArea.setText(output);
+
+		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(outFileName), StandardOpenOption.CREATE)) {
+
+			writer.write(output);
+
+		} catch (IOException e) {
+			_errorLabel.setText("uh oh ... sad sad panda ...");
+		}
+
+	}
+
+	@FXML
+	void handleSearch(ActionEvent event) {
+
+		final String fileName = _inFileTxtField.getText().strip();
+
+		final Path filePath = Paths.get(fileName);
+
+		try {
+			_errorLabel.setText("");
+
+			_inputTextArea.clear();
+
+			_inFileContent = Files.readAllLines(filePath);
+
+			_inputTextArea.setText(String.join("\n", _inFileContent));
+
+		} catch (IOException e) {
+			_inputTextArea.clear();
+
+			String errorMessage = String.format(
+					"\"%s\" does not exist.\nPlease try searching for another file or copy & paste your code in here.",
+					fileName);
+
+			_errorLabel.setText(errorMessage);
+		}
+
+	}
 }

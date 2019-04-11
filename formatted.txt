@@ -1,0 +1,25 @@
+public class IndentTest
+{
+    public static void main(String[] args)
+    {
+        int n1, n2;
+        n1+n2;
+        if (true)
+        {
+            System.out.println();
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            if (i % 2 == 0)
+            {
+                System.out.println(i);
+            }
+            else
+            {
+                System.out.println("hmm, that is odd ...");
+            }
+        }
+        // end of for loop
+    }
+    // end of main
+}

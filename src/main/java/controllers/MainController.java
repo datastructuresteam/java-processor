@@ -6,7 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+>>>>>>> e5e10bc4f7640b4406c7c429bbb3b794153b3e96
 import java.util.List;
 
 import formatter.JavaFormatter;
@@ -47,12 +50,15 @@ public class MainController {
 		if (outFileName.isBlank()) {
 			return;
 		}
+<<<<<<< HEAD
 		
 		if (!_inputTextArea.getText().isBlank()) {
 			final String input = _inputTextArea.getText().strip();
 			final String[] tokens = input.split("\n");
 			_inFileContent = Arrays.asList(tokens);
 		}
+=======
+>>>>>>> e5e10bc4f7640b4406c7c429bbb3b794153b3e96
 
 		_parser = new JavaParser(_inFileContent);
 

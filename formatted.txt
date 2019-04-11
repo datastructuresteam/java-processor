@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 public class Main
 {
     public static void main(String[] args)
@@ -5,6 +6,15 @@ public class Main
         System.out.println("Hello World");
     }
 }f (true)
+=======
+public class IndentTest
+{
+    public static void main(String[] args)
+    {
+        int n1, n2;
+        n1+n2;
+        if (true)
+>>>>>>> e5e10bc4f7640b4406c7c429bbb3b794153b3e96
         {
             System.out.println();
         }
